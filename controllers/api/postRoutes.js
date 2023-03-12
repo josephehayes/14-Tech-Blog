@@ -4,13 +4,17 @@ const withAuth = require('../../utils/auth');
 const sequelize = require('sequelize');
 
 
-router.get('/posts', withAuth, async (req, res) => {
+router.get('/posts', async (req, res) => { //withAuth,
     try {
-        const postData = await Posts.findAll().get({ plain: true });
+        const postData = await Posts.findAll();
+        const posts = postData.map((post) => 
+            post.get({ plain: true }));
+    
+        // res.render('posts', {
+        //     ...postData
+        // });
 
-        res.render('posts', {
-            ...postData
-        });
+        res.status(200).json(posts);
     } catch (e) {
         res.status(500).json(e);
     }
