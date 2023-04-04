@@ -32,6 +32,16 @@ Posts.init({
             len: [1, 256],
         }
     },
+    created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: sequelize.literal("NOW()"),
+    },
+    updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: sequelize.literal("NOW()"),
+    },
 },
 {
     sequelize,
