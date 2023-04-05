@@ -51,6 +51,9 @@ router.post('/logout', async (req, res) => {
         req.session.destroy(() => {
             res.status(204).end();
         });
+        res.render('homepage', {
+            logged_in: false
+        });
     } else {
         res.status(404).end();
     }
