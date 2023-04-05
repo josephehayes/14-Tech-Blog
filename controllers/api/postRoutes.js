@@ -22,7 +22,13 @@ router.get('/posts', withAuth, async (req, res) => { //withAuth,
 
 router.post('/posts', withAuth, async (req, res) => { //withAuth
     try {
-        const newPostData  = await Posts.create(req.body);
+        const { title, contents } = req.body;
+
+        const newPostData  = await Posts.create({
+            title: title,
+            contents: contents,
+            user_id: req.session.user_id,
+        });
         res.status(200).json(newPostData);
         console.log("200 : New post created ", newPostData);
     } catch (e) {
