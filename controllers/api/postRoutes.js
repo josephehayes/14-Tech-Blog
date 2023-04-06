@@ -73,7 +73,7 @@ router.delete('/posts/:id', async (req, res) => {
         res.status(400).json(e);
     }
 });
-
+/*
 router.get('/dashboard', async (req, res) => {
     try {
         console.log("loading dashboard for user: ", req.session.user_id);
@@ -94,5 +94,6 @@ router.get('/dashboard', async (req, res) => {
         res.status(500).json(e)
     }
 });
+*/
 
 module.exports = router;

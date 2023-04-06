@@ -1,3 +1,6 @@
+const { Posts, User, UserToPosts } = require('../models');
+const withAuth = require('../utils/auth');
+const sequelize = require('sequelize');
 const router = require('express').Router();
 
 router.get('/', async (req, res) => {
@@ -16,6 +19,27 @@ router.get('/login', async (req, res) => {
         return;
     }
     res.render('login');
+});
+
+router.get('/dashboard', async (req, res) => {
+    try {
+        console.log("loading dashboard for user: ", req.session.user_id);
+        const userPosts = await Posts.findAll({
+            where: {
+                user_id: req.session.user_id,
+            }
+        });
+        //const posts = userPosts.get({ plain: true });
+        
+        // res.render('dashboard', {
+        //     ...posts,
+        // })
+        console.log("200 : Loading dashboard for user ", req.session.user_id)
+        res.status(200).json(userPosts);
+    } catch (e) {
+        console.log("Err loading dashboard ", e);
+        res.status(500).json(e)
+    }
 });
 
 module.exports = router;
